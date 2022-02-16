@@ -127,25 +127,26 @@ function addPostHTML(id, username, title, contents, modifiedAt) {
 }
 
 function addPostHTML2(id, comments) {
-    for (i=0; i<comments.length; i++) {
+    for (i=(comments.length - 1); i>-1; i--) {
         let commentsList = comments[i]
         let comment = commentsList['content']
+        let c_id = commentsList['id']
 
         temp_html = `<div class="comment-card">
                         <!-- contents 조회/수정 영역-->
                         <div class="comment-contents">
-                            <div id="${id}-comment-contents" class="comment-text">
+                            <div id="${c_id}-comment-contents" class="comment-text">
                                 ${comment}
                             </div>
-                            <div id="${id}-editcommentarea" class="edit">
-                                <textarea id="${id}-commentarea" class="comment-edit" name="" id="" cols="30" rows="5"></textarea>
+                            <div id="${c_id}-editcommentarea" class="edit">
+                                <textarea id="${c_id}-commentarea" class="comment-edit" name="" id="" cols="30" rows="5"></textarea>
                             </div>
                         </div>
                         <!-- 버튼 영역-->
                         <div class="comment-footer">
-                            <img id="${id}-commenteditbtn" class="icon-start-edit" src="images/edit.png" alt="" onclick="editComment('${id}')">
-                            <img id="${id}-commentdelete" class="icon-delete" src="images/delete.png" alt="" onclick="deleteComment('${id}')">
-                            <img id="${id}-commentsubmit" class="icon-end-edit" src="images/done.png" alt="" onclick="commentSubmitEdit('${id}')">
+                            <img id="${id}-commenteditbtn" class="icon-start-edit" src="images/edit.png" alt="" onclick="editComment('${c_id}')">
+                            <img id="${id}-commentdelete" class="icon-delete" src="images/delete.png" alt="" onclick="deleteComment('${c_id}')">
+                            <img id="${id}-commentsubmit" class="icon-end-edit" src="images/done.png" alt="" onclick="commentSubmitEdit('${c_id}')">
                         </div>
                     </div>`
         $('#comments-box').append(temp_html)
@@ -240,34 +241,34 @@ function writeComment(id) {
     });
 }
 
-function editComment(id) {
-    showCommentEdits(id);
-    let contents = $(`#${id}-comment-contents`).text().trim();
-    $(`#${id}-commentarea`).val(contents);
+function editComment(c_id) {
+    showCommentEdits(c_id);
+    let contents = $(`#${c_id}-comment-contents`).text().trim();
+    $(`#${c_id}-commentarea`).val(contents);
 }
 
-function showCommentEdits(id) {
-    $(`#${id}-editcommentarea`).show();
-    $(`#${id}-commentsubmit`).show();
-    $(`#${id}-commentdelete`).show();
+function showCommentEdits(c_id) {
+    $(`#${c_id}-editcommentarea`).show();
+    $(`#${c_id}-commentsubmit`).show();
+    $(`#${c_id}-commentdelete`).show();
 
-    $(`#${id}-comment-contents`).hide();
-    $(`#${id}-commenteditbtn`).hide();
+    $(`#${c_id}-comment-contents`).hide();
+    $(`#${c_id}-commenteditbtn`).hide();
 }
 
-function commentSubmitEdit(id) {
+function commentSubmitEdit(c_id) {
     // 1. 작성 대상 메모의 username과 contents 를 확인합니다.
-    let contents = $(`#${id}-commentarea`).val().trim();
+    let contents = $(`#${c_id}-commentarea`).val().trim();
     // 2. 작성한 메모가 올바른지 isValidContents 함수를 통해 확인합니다.
     if (isValidComment(contents) == false) {
         return;
     }
     // 3. 전달할 data JSON으로 만듭니다.
     let data = {'commentContents': contents};
-    // 4. PUT /api/memos/{id} 에 data를 전달합니다.
+    // 4. PUT /api/memos/{c_id} 에 data를 전달합니다.
     $.ajax({
         type: "PUT",
-        url: `/api/comments/${id}`,
+        url: `/api/comments/${c_id}`,
         contentType: "application/json",
         data: JSON.stringify(data),
         success: function (response) {
@@ -277,10 +278,10 @@ function commentSubmitEdit(id) {
     });
 }
 
-function deleteComment(id) {
+function deleteComment(c_id) {
     $.ajax({
         type: "DELETE",
-        url: `/api/comments/${id}`,
+        url: `/api/comments/${c_id}`,
         success: function (response) {
             alert('메시지 삭제에 성공하였습니다.');
             window.location.reload();
