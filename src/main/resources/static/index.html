@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>project 01 | board</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="basic.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+<div class="background-header">
+
+</div>
+<div class="background-body">
+
+</div>
+<div class="wrap">
+    <div class="header">
+        <h2 onclick="window.location.reload()">Timeline Service</h2>
+        <p onclick="window.location.reload()">
+            작은 게시판
+        </p>
+    </div>
+    <div>
+        <button onclick="openClose()" id="btn-post-box" type="button" class="btn btn-primary">포스팅 박스 열기
+        </button>
+    </div>
+    <div class="area-write" id="area-write" style="display: none" >
+        <textarea class="title-field" placeholder="제목을 입력해주세요" name="title" id="title" cols="30"
+                  rows="10"></textarea>
+        <textarea class="username-field" placeholder="이름을 입력해주세요" name="username" id="username" cols="30"
+                  rows="10"></textarea>
+        <textarea class="field" placeholder="내용을 입력해주세요" name="contents" id="contents" cols="30"
+                  rows="10"></textarea>
+        <!--            <button class="btn btn-danger" onclick="writePost()">작성하기</button>-->
+        <img src="images/send.png" alt="" onclick="writePost()">
+    </div>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col" class="th">작성자</th>
+            <th scope="col" class="th">제목</th>
+            <th scope="col" class="th">작성 시간(최근 수정 시간)</th>
+            <th scope="col" class="th">삭제</th>
+        </tr>
+        </thead>
+
+        <tbody id="tables-box">
+        <tr>
+            <td class="td">사람 이름</td>
+            <td class="td">Title 적었습니다</td>
+            <td class="td">2022.02.14 20:18:00</td>
+            <td class="td">삭제버튼</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+
+</html>
