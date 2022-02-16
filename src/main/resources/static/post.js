@@ -144,9 +144,9 @@ function addPostHTML2(id, comments) {
                         </div>
                         <!-- 버튼 영역-->
                         <div class="comment-footer">
-                            <img id="${id}-commenteditbtn" class="icon-start-edit" src="images/edit.png" alt="" onclick="editComment('${c_id}')">
-                            <img id="${id}-commentdelete" class="icon-delete" src="images/delete.png" alt="" onclick="deleteComment('${c_id}')">
-                            <img id="${id}-commentsubmit" class="icon-end-edit" src="images/done.png" alt="" onclick="commentSubmitEdit('${c_id}')">
+                            <img id="${c_id}-commenteditbtn" class="icon-start-edit" src="images/edit.png" alt="" onclick="editComment('${c_id}')">
+                            <img id="${c_id}-commentdelete" class="icon-delete" src="images/delete.png" alt="" onclick="deleteComment('${c_id}')">
+                            <img id="${c_id}-commentsubmit" class="icon-end-edit" src="images/done.png" alt="" onclick="commentSubmitEdit('${c_id}')">
                         </div>
                     </div>`
         $('#comments-box').append(temp_html)
